@@ -1,9 +1,7 @@
 # Pretty Bad North
 A p5.js sketch that generates an island using the Wave Function Collapse Algorithm
 
-Built after watching streams of The Coding Train (Choo Choo)
-
-It's not perfect, but I had a lot of fun building it.
+Built after watching streams of The Coding Train (Choo Choo). It's not perfect, but I had a lot of fun building it.
 
 I have some more Ideas(see TODO), but very little time. (Already spent way to much time on this project)
 
