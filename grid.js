@@ -27,7 +27,7 @@ class Grid {
 
   initSlots() {
     // Default starting options (all modules)
-    var options = Object.keys(modules);
+    var options = Object.values(modules);
     // Build Slots with initial values
     for (var y = -this.r; y <= this.r; y++) {
       for (var x = -this.r; x <= this.r; x++) {
@@ -43,22 +43,23 @@ class Grid {
     for (const slot of this.slots) {
       slot.getNeighbours();
     }
-
-    // Setup Starting position (vertical sides are air)
+    // Setup Starting position
     for (const slot of this.slots) {
       if (slot.y == -this.r) {
-        slot.options = ["water"];
+        // Just set bottom row to Water and Collapse
+        slot.options = [modules.water_0];
         slot.collapse();
       } else {
+        // Propegate vertical sides to Air
         if (abs(slot.x) == this.r || abs(slot.z) == this.r) {
-          slot.propegate(["air"]);
+          slot.propegate([modules.air_0]);
         }
       }
     }
   }
 
   getLeastEntropy() {
-    // Filter Slots
+    // Filter Slots that are not Collapsed
     const slots = this.slots.slice().filter((a) => !a.collapsed);
 
     // Stop when there are no slots left
@@ -123,15 +124,30 @@ class Grid {
 
     for (const option of options) {
       // Trying to give options a weight value to influence picking chance
-      // Could be improve though (based on Axis)
-      if (option == "box") weight = gui.weights.box;
-      else if (option == "air") weight = gui.weights.air;
-      else if (option.startsWith("slope")) weight = gui.weights.slope;
-      else if (option.startsWith("convex")) weight = gui.weights.corner;
-      else if (option.startsWith("concave")) weight = gui.weights.corner;
-      else weight = 0.01;
+      // TODO: Could be improved? (based on Axis)
+      if (option.name.startsWith("box")){
+        if (slot.y <0)
+        weight = gui.weights.box+5;
+        else
+        weight = 0.001;
+      } 
+      else if (option.name.startsWith("air")) {
+        if (slot.y <0 || abs(slot.x) <4 || abs(slot.y)<4)
+        weight = 0.002;
+        else
+        weight = 5;//gui.weights.air;
+      }
+      else if (option.name.startsWith("slope")) {
+        if (abs(slot.x) < 3 && abs(slot.z) <3)
+          weight = 0.002
+        else
+          weight = gui.weights.slope;
+      }
+      else if (option.name.startsWith("convex")) weight = gui.weights.corner;
+      else if (option.name.startsWith("concave")) weight = gui.weights.corner;
+      else weight = 0.002;
 
-      weight = ceil(100 * round(weight,2));
+      weight = ceil(1000 * weight);
       var tempList = Array(weight).fill(option);
       for (const temp of tempList) {
         pickList.push(temp);

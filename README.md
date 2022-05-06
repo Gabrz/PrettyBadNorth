@@ -13,8 +13,6 @@ I have some more Ideas(see TODO), but very little time. (Already spent way to mu
   (based on Axis? instead of just some random numbers because they work)
 - Fiddle around with adjacencies.
   (box next to air)
-- "Generate" edges and adjacencies
-  (instead of hardcode them, try to rotate with code)
 - Make new Meshes.
   (corner that is not a slope)
 - Convert box to Geometry with vertices.

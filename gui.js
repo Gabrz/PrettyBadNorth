@@ -8,9 +8,9 @@ function initGui() {
   gui.dim = DIM;
   gui.weights = {
     box: 2,
-    air: 0.01,
-    slope: 1,
-    corner: 0.02
+    air: 0.001,
+    slope: 0.1,
+    corner: 0.001
   };
 }
 
@@ -21,7 +21,7 @@ function drawGui() {
   // Draw GUI Components
   drawTitle();
   drawControls();
-  drawWeights();
+  //drawWeights();
   pop();
 }
 
@@ -44,9 +44,9 @@ function drawControls() {
   
   gui.controls.fill(150);
   gui.controls.rect(3, 3, map(gui.speed, 5, 1000, 0, 94), 24);
-  gui.controls.rect(3, 43, map(gui.dim, 9, 15, 0, 94), 24);
+  gui.controls.rect(3, 43, map(gui.dim, 5, 15, 0, 94), 24);
   // Restart Control
-  if (startWave || restartMouseOver) restartFill = 150;
+  if (restartMouseOver) restartFill = 150;
   else restartFill = 200;
   gui.controls.fill(restartFill);
   gui.controls.rect(110, 0, 70, 70);
@@ -95,9 +95,7 @@ function mousePressed() {
     mouseY > HEIGHT - 75 &&
     mouseY < HEIGHT - 5
   ) {
-    if (!startWave) {
-      startOver();
-    }
+    startOver();
   } else controlDragPress();
 }
 
@@ -133,34 +131,34 @@ function controlDragPress() {
     mouseY > HEIGHT - 35 &&
     mouseY < HEIGHT - 5
   ) {
-    gui.dim = ceil(map(mouseX, 5, 105, 8, 15));
+    gui.dim = ceil(map(mouseX, 5, 105, 5, 15));
   } else if (
     mouseX > WIDTH -105 &&
     mouseX < WIDTH - 5 &&
     mouseY > HEIGHT - 100 &&
     mouseY < HEIGHT - 80
   ) {
-    gui.weights.air = map(mouseX, WIDTH -105, WIDTH-5, 0.01, 0.05);
+    gui.weights.air = map(mouseX, WIDTH -105, WIDTH-5, 0.001, 0.05);
   } else if (
     mouseX > WIDTH -105 &&
     mouseX < WIDTH - 5 &&
     mouseY > HEIGHT - 75 &&
     mouseY < HEIGHT - 55
   ) {
-    gui.weights.box = map(mouseX, WIDTH -105, WIDTH-5, 0.01, 3);
+    gui.weights.box = map(mouseX, WIDTH -105, WIDTH-5, 0.001, 3);
   } else if (
     mouseX > WIDTH -105 &&
     mouseX < WIDTH - 5 &&
     mouseY > HEIGHT - 50 &&
     mouseY < HEIGHT - 30
   ) {
-    gui.weights.slope = map(mouseX, WIDTH -105, WIDTH-5, 0.01, 1);
+    gui.weights.slope = map(mouseX, WIDTH -105, WIDTH-5, 0.001, 1);
   } else if (
     mouseX > WIDTH -105 &&
     mouseX < WIDTH - 5 &&
     mouseY > HEIGHT - 25 &&
     mouseY < HEIGHT - 5
   ) {
-    gui.weights.corner = map(mouseX, WIDTH -105, WIDTH-5, 0.01, 1);
+    gui.weights.corner = map(mouseX, WIDTH -105, WIDTH-5, 0.001, 1);
   }
 }

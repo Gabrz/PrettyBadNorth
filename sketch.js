@@ -8,8 +8,6 @@
 //    (based on Axis? instead of just some random numbers because they work)
 //  - Fiddle around with adjacencies.
 //    (box next to air)
-//  - "Generate" edges and adjacencies
-//    (instead of hardcode them, try to rotate with code)
 //  - Make new Meshes.
 //    (corner that is not a slope)
 //  - Convert box to Geometry with vertices.
@@ -18,7 +16,7 @@
 //    (more structured)
 //  - 
 
-const DEBUG = false;
+const DEBUG = true;
 const WIDTH = 600;
 const HEIGHT = 400;
 const DIM = 13;
@@ -26,7 +24,6 @@ const SIZE = 50;
 
 var cam;
 var gui = {};
-var meshes = {};
 var modules = {};
 var grid;
 
@@ -39,7 +36,6 @@ function setup() {
   
   // Init Stuff
   initGui();
-  initMeshes();
   initModules();
   
   // Start
