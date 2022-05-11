@@ -6,6 +6,8 @@ class Slot {
     this.collapsed = false;
     this.options = opt;
     this.neighbours = {};
+    
+    this.color = color(0,0,0);
   }
 
   draw() {
@@ -26,26 +28,8 @@ class Slot {
     push();
     rotateY(module.angle*90);
 
-    // Set Colors
-    switch (module.mesh.name) {
-      case "water":
-        fill(152,210,234);
-        break;
-      case "box":
-      case "slope":
-      case "convex0":
-      case "convex1":
-      case "concave0":
-      case "concave1":
-        if (this.y==-grid.r+1) fill (253,228,161);
-        else if (this.y>=-grid.r+4) fill (245,248,251);
-        else fill(187,216,158);
-        break;
-      default:
-        break;
-    }
-
     // Draw Mesh
+    fill(this.color);
     switch (module.mesh.name) {
       case "air":
       if (DEBUG) point(0, 0, 0);
@@ -57,6 +41,14 @@ class Slot {
         model(module.mesh.model);
     }
     pop();
+  }
+  
+  setColor() {
+    // Set Colors based on Y-Axis
+    if (this.y==-grid.r) this.color = color(152,210,234);
+    else if (this.y==-grid.r+1) this.color = color(253,228,161);
+    else if (this.y>=-grid.r+4) this.color = color(245,248,251);
+    else this.color = color(187,216,158);
   }
 
   collapse() {

@@ -42,6 +42,7 @@ class Grid {
     // Calculate Neighbors
     for (const slot of this.slots) {
       slot.getNeighbours();
+      slot.setColor();
     }
     // Setup Starting position
     for (const slot of this.slots) {

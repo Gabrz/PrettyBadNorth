@@ -68,7 +68,7 @@ function initModules(){
           connections.push(moduleB);
       }
       // Add Connections to the module
-      moduleA.connections[i] = connections;
+      moduleA.connections[i.toString()] = connections;
     }
   }
 }
